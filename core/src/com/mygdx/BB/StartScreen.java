@@ -33,9 +33,9 @@ public class StartScreen implements Screen {
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		game.batch.begin();
-		game.batch.draw(background, 400, 240);
-		game.batch.draw(logo, 400, 350);
-		game.font.draw(game.batch, "CLick Anywhere To Begin", 100, 150);
+		game.batch.draw(background, 0, 0);
+		game.batch.draw(logo, 200, 270);
+		game.font.draw(game.batch, "Click Anywhere To Begin", 100, 150);
 		game.batch.end();
 		
 		if(Gdx.input.isTouched()) {

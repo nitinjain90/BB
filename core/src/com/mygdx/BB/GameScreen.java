@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen implements Screen {
 	final BB game;
-	Texture background;
+
 	Texture ballonImage;
 
 	Array<Rectangle> ballons;
@@ -28,7 +29,7 @@ public class GameScreen implements Screen {
 	public GameScreen(final BB gam) {
 		this.game = gam;
 
-		background = new Texture(Gdx.files.internal("background.jpg"));
+		
 		ballonImage = new Texture(Gdx.files.internal("ballon.png"));
 
 		camera = new OrthographicCamera();
@@ -62,11 +63,15 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-        camera.update();
+        Gdx.gl.glClearColor(0, 0, 0.3f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         
+        
         game.batch.begin();
-        game.font.draw(game.batch, "Ballon Bursted :", 0, 460);
+        game.font.draw(game.batch, "Ballon Bursted :"+ballonBursted, 0, 460);
         for(Rectangle ballon : ballons){
         	game.batch.draw(ballonImage, ballon.x, ballon.y);
         }
@@ -128,7 +133,7 @@ public class GameScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
         ballonImage.dispose();
-        background.dispose();
+      
 	}
 
 }
