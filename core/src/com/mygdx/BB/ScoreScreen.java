@@ -1,14 +1,13 @@
 package com.mygdx.BB;
 
 import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 
 public class ScoreScreen implements Screen {
 	final BB game;
@@ -28,16 +26,14 @@ public class ScoreScreen implements Screen {
 	private TextButton buttonExit, buttonShare, buttonStart;
 	private Sound click;
 
-	
 	final int score;
 
-	OrthographicCamera camera;
+	
 
 	public ScoreScreen(final BB gam, int scor) {
 		this.game = gam;
 		this.score = scor;
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		
 		Gdx.input.setInputProcessor(stage);
 
 		atlas = new TextureAtlas("buttons.pack");
@@ -58,7 +54,8 @@ public class ScoreScreen implements Screen {
 		table.add(buttonStart);
 		table.debug();
 		stage.addActor(table);
-		click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
+		click = Gdx.audio.newSound(Gdx.files.internal("Click.wav"));
+		
 		buttonExit.addListener(new ChangeListener() {
 
 			@Override
@@ -69,27 +66,27 @@ public class ScoreScreen implements Screen {
 			}
 
 		});
-		buttonShare.addListener(new ChangeListener(){
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				
-			    click.play();  	
-			}
-        	 
-         });
-		buttonStart.addListener(new ChangeListener(){
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				
-				game.setScreen(new StartScreen(game));
-			    click.play();  	
-			}
-        	 
-         });
-
 		
+		buttonShare.addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+
+				click.play();
+			}
+
+		});
+		
+		buttonStart.addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+
+				game.setScreen(new StartScreen(game));
+				click.play();
+			}
+
+		});
 
 	}
 
@@ -98,12 +95,10 @@ public class ScoreScreen implements Screen {
 		// TODO Auto-generated method stub
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
 		stage.draw();
 		game.batch.begin();
-		
-		game.font.draw(game.batch, "Your score is :" +score, 400, 340);
+
+		game.font.draw(game.batch, "Your score is :" + score, 400, 340);
 		game.batch.end();
 	}
 
@@ -135,10 +130,11 @@ public class ScoreScreen implements Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-	   stage.dispose();
-	   font.dispose();
-	   atlas.dispose();
-	   skin.dispose();
+		stage.dispose();
+		font.dispose();
+		atlas.dispose();
+		skin.dispose();
+		click.dispose();
 
 	}
 

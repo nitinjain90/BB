@@ -32,7 +32,7 @@ public class GameScreen implements Screen {
 
 	Sound ballonBursting;
      
-	float stateTime;
+	
 	public GameScreen(final BB gam) {
 		this.game = gam;
 		ballonFrames = new Texture(Gdx.files.internal("ballon_burst.png"));
@@ -80,12 +80,10 @@ public class GameScreen implements Screen {
 
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
-
-		currentFrame = burstAnimation.getKeyFrame(stateTime , false);
-		game.batch.begin();
+        game.batch.begin();
 		game.font.draw(game.batch, "Ballon Bursted :" + ballonBursted, 0, 460);
 		for (Rectangle ballon : ballons) {
-			game.batch.draw(currentFrame, ballon.x, ballon.y);
+			game.batch.draw(burstFrames[0], ballon.x, ballon.y);
 		}
 		
 
@@ -103,7 +101,7 @@ public class GameScreen implements Screen {
 			}
 			if (ballonBursted(ballon) == true) {
 				ballonBursted++;
-				game.batch.draw(burstAnimation.getKeyFrame(stateTime+3.1f) , ballon.x , ballon.y);
+				game.batch.draw(burstFrames[1] , ballon.x , ballon.y);
 				ballonBursting.play();
 				iter.remove();
 			}
@@ -117,38 +115,35 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+
 
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		ballonFrames.dispose();
+		ballonBursting.dispose();
+		
 		
 
 	}

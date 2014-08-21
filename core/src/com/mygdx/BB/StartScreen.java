@@ -31,23 +31,20 @@ public class StartScreen implements Screen {
 	private BitmapFont font;
 	private TextButton buttonPlay, buttonLeaderboard;
 	private Sound click;
-	
 
-	OrthographicCamera camera;
+	
 
 	public StartScreen(final BB gam) {
 		this.game = gam;
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		
+
 		atlas = new TextureAtlas("buttons.pack");
 		skin = new Skin(atlas);
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        font = new BitmapFont(Gdx.files.internal("font.fnt") , false);
+		font = new BitmapFont(Gdx.files.internal("font.fnt"), false);
 		TextButtonStyle style = new TextButtonStyle();
 		style.up = skin.getDrawable("Button");
 		style.down = skin.getDrawable("Button");
@@ -55,52 +52,48 @@ public class StartScreen implements Screen {
 
 		buttonPlay = new TextButton("PLAY", style);
 		buttonLeaderboard = new TextButton("LEADERBOARD", style);
-        table.add(buttonPlay);
-        table.add(buttonLeaderboard);
-        table.debug();
-        stage.addActor(table);
-		click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
-         buttonPlay.addListener(new ChangeListener(){
+		table.add(buttonPlay);
+		table.add(buttonLeaderboard);
+		table.debug();
+		stage.addActor(table);
+		click = Gdx.audio.newSound(Gdx.files.internal("Click.wav"));
+
+		buttonPlay.addListener(new ChangeListener() {
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				
-				game.setScreen(new GameScreen(game));
-			    click.play();  	
-			}
-        	 
-         });
-        	   
-        buttonLeaderboard.addListener(new ChangeListener() {
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor) {
-				game.setScreen(new ScoreScreen(game , 0));
 				click.play();
-			}
-    	    
-        }); 
+				game.setScreen(new GameScreen(game));
 
-		 				
-        
+			}
+
+		});
+
+		buttonLeaderboard.addListener(new ChangeListener() {
+
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				click.play();
+				game.setScreen(new ScoreScreen(game, 0));
+
+			}
+
+		});
+
 		logo = new Texture(Gdx.files.internal("logo.png"));
 
 	}
 
 	@Override
 	public void render(float delta) {
-		
+
 		Gdx.gl.glClearColor(0, 0, 0.3f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
-		game.batch.setProjectionMatrix(camera.combined);
 		stage.draw();
 		game.batch.begin();
 		game.batch.draw(logo, 200, 250);
 		game.batch.end();
-		
-		
-         
+
 	}
 
 	@Override
@@ -135,7 +128,7 @@ public class StartScreen implements Screen {
 		font.dispose();
 		atlas.dispose();
 		skin.dispose();
-		
+		click.dispose();
 
 	}
 
