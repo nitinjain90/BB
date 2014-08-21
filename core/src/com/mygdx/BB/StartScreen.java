@@ -3,6 +3,7 @@ package com.mygdx.BB;
 import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,6 +30,7 @@ public class StartScreen implements Screen {
 	private Table table;
 	private BitmapFont font;
 	private TextButton buttonPlay, buttonLeaderboard;
+	private Sound click;
 	
 
 	OrthographicCamera camera;
@@ -57,13 +59,14 @@ public class StartScreen implements Screen {
         table.add(buttonLeaderboard);
         table.debug();
         stage.addActor(table);
-		
+		click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
          buttonPlay.addListener(new ChangeListener(){
 
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				
 				game.setScreen(new GameScreen(game));
+			    click.play();  	
 			}
         	 
          });
@@ -73,7 +76,7 @@ public class StartScreen implements Screen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				game.setScreen(new ScoreScreen(game , 0));
-				
+				click.play();
 			}
     	    
         }); 
@@ -130,6 +133,8 @@ public class StartScreen implements Screen {
 		logo.dispose();
 		stage.dispose();
 		font.dispose();
+		atlas.dispose();
+		skin.dispose();
 		
 
 	}
