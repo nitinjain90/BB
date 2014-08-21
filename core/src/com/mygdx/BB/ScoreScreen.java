@@ -4,12 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ScoreScreen implements Screen {
 	final BB game;
+	private Stage stage;
+	private TextureAtlas atlas;
+	private Skin skin;
+	private Table table;
 	Texture background;
 	final int score;
+
 	OrthographicCamera camera;
 
 	public ScoreScreen(final BB gam, int scor) {
@@ -27,7 +36,7 @@ public class ScoreScreen implements Screen {
 	public void render(float delta) {
 		// TODO Auto-generated method stub
 		game.batch.begin();
-		game.batch.draw(background, 400, 240);
+		game.batch.draw(background, 0, 0);
 
 		game.font.draw(game.batch, "Your score is :" + score, 400, 240);
 		game.font.draw(game.batch, "Press anywhere to quit", 200, 240);
@@ -41,31 +50,26 @@ public class ScoreScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+	
 	}
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 
 	}
 

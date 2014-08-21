@@ -1,0 +1,68 @@
+
+buttons.pack.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bg1
+  rotate: false
+  xy: 1, 513
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+logo
+  rotate: false
+  xy: 1, 361
+  size: 400, 150
+  orig: 400, 150
+  offset: 0, 0
+  index: -1
+badlogic
+  rotate: false
+  xy: 1, 103
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 403, 334
+  size: 284, 177
+  orig: 284, 177
+  offset: 0, 0
+  index: -1
+Button
+  rotate: false
+  xy: 1, 1
+  size: 300, 100
+  orig: 300, 100
+  offset: 0, 0
+  index: -1
+BUTTON1
+  rotate: false
+  xy: 803, 935
+  size: 190, 58
+  orig: 190, 58
+  offset: 0, 0
+  index: -1
+ballon_burst
+  rotate: false
+  xy: 689, 436
+  size: 80, 75
+  orig: 80, 75
+  offset: 0, 0
+  index: -1
+ballon
+  rotate: false
+  xy: 259, 284
+  size: 40, 75
+  orig: 40, 75
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 803, 893
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
