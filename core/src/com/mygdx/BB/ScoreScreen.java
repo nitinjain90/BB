@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class ScoreScreen implements Screen {
 	final BB game;
+
 	private Stage stage;
 	private TextureAtlas atlas;
 	private Skin skin;
@@ -27,12 +29,11 @@ public class ScoreScreen implements Screen {
 
 	final int score;
 
-	
-
 	public ScoreScreen(final BB gam, int scor) {
 		this.game = gam;
 		this.score = scor;
-		
+
+		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
 		atlas = new TextureAtlas("buttons.pack");
@@ -40,6 +41,7 @@ public class ScoreScreen implements Screen {
 		table = new Table(skin);
 		table.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		font = new BitmapFont(Gdx.files.internal("font.fnt"), false);
+
 		TextButtonStyle style = new TextButtonStyle();
 		style.up = skin.getDrawable("Button");
 		style.down = skin.getDrawable("Button");
@@ -48,13 +50,17 @@ public class ScoreScreen implements Screen {
 		buttonExit = new TextButton("EXIT", style);
 		buttonShare = new TextButton("FB SHARE", style);
 		buttonStart = new TextButton("MAIN MENU", style);
-		table.add(buttonExit);
-		table.add(buttonShare);
+		table.row();
 		table.add(buttonStart);
+		table.row();
+		table.add(buttonShare);
+		table.row();
+		table.add(buttonExit);
+
 		table.debug();
 		stage.addActor(table);
 		click = Gdx.audio.newSound(Gdx.files.internal("Click.wav"));
-		
+
 		buttonExit.addListener(new ChangeListener() {
 
 			@Override
@@ -65,7 +71,7 @@ public class ScoreScreen implements Screen {
 			}
 
 		});
-		
+
 		buttonShare.addListener(new ChangeListener() {
 
 			@Override
@@ -75,7 +81,7 @@ public class ScoreScreen implements Screen {
 			}
 
 		});
-		
+
 		buttonStart.addListener(new ChangeListener() {
 
 			@Override
@@ -92,12 +98,12 @@ public class ScoreScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClearColor(255.0f, 255.0f, 255.0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 		game.batch.begin();
 
-		game.font.draw(game.batch, "Your score is :" + score, 400, 340);
+		font.draw(game.batch, "Your score is :" + score, 400, 420);
 		game.batch.end();
 	}
 
@@ -131,11 +137,12 @@ public class ScoreScreen implements Screen {
 	public void dispose() {
 		// TODO Auto-generated method stub
 		stage.dispose();
+		table.clear();
 		font.dispose();
 		atlas.dispose();
 		skin.dispose();
 		click.dispose();
-
+		game.batch.dispose();
 	}
 
 }

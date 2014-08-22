@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,6 +24,7 @@ public class StartScreen implements Screen {
 
 	final BB game;
 	Texture logo;
+	
 
 	private Stage stage;
 	private TextureAtlas atlas;
@@ -36,9 +38,9 @@ public class StartScreen implements Screen {
 
 	public StartScreen(final BB gam) {
 		this.game = gam;
-
+         
 		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
+		
 
 		atlas = new TextureAtlas("buttons.pack");
 		skin = new Skin(atlas);
@@ -55,6 +57,7 @@ public class StartScreen implements Screen {
 		table.add(buttonPlay);
 		table.add(buttonLeaderboard);
 		table.debug();
+		
 		stage.addActor(table);
 		click = Gdx.audio.newSound(Gdx.files.internal("Click.wav"));
 
@@ -64,7 +67,7 @@ public class StartScreen implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				click.play();
 				game.setScreen(new GameScreen(game));
-
+                Gdx.input.setInputProcessor(null);
 			}
 
 		});
@@ -75,7 +78,7 @@ public class StartScreen implements Screen {
 			public void changed(ChangeEvent event, Actor actor) {
 				click.play();
 				game.setScreen(new ScoreScreen(game, 0));
-
+                Gdx.input.setInputProcessor(null);
 			}
 
 		});
@@ -87,12 +90,12 @@ public class StartScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-		Gdx.gl.glClearColor(0, 0, 0.3f, 1);
+		Gdx.gl.glClearColor(255.0f, 255.0f, 255.0f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stage.draw();
 		game.batch.begin();
 		game.batch.draw(logo, 200, 250);
-		game.batch.end();
+	    game.batch.end();
 
 	}
 
@@ -103,7 +106,7 @@ public class StartScreen implements Screen {
 
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -124,11 +127,13 @@ public class StartScreen implements Screen {
 	@Override
 	public void dispose() {
 		logo.dispose();
+		table.clear();
 		stage.dispose();
 		font.dispose();
 		atlas.dispose();
 		skin.dispose();
 		click.dispose();
+		game.batch.dispose();
 
 	}
 

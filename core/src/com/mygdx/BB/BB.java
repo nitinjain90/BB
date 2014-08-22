@@ -11,11 +11,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BB extends Game {
 	public SpriteBatch batch;
-	public BitmapFont font;
+	
 	@Override
 	public void create () {
-	   batch = new SpriteBatch();
-	   font = new BitmapFont();
+	  batch = new SpriteBatch();
 	   
 	   this.setScreen(new StartScreen(this));
 	}
@@ -42,7 +41,6 @@ public class BB extends Game {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
+		
 	}
 }

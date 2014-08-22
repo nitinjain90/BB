@@ -1,5 +1,5 @@
 
-buttons.pack.png
+buttons.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -38,6 +38,13 @@ Button
   orig: 300, 100
   offset: 0, 0
   index: -1
+font
+  rotate: false
+  xy: 689, 255
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 0
 BUTTON1
   rotate: false
   xy: 803, 935
@@ -47,21 +54,21 @@ BUTTON1
   index: -1
 ballon_burst
   rotate: false
-  xy: 689, 436
+  xy: 259, 284
   size: 80, 75
   orig: 80, 75
   offset: 0, 0
   index: -1
 ballon
   rotate: false
-  xy: 259, 284
+  xy: 803, 858
   size: 40, 75
   orig: 40, 75
   offset: 0, 0
   index: -1
 heart
   rotate: false
-  xy: 803, 893
+  xy: 341, 319
   size: 40, 40
   orig: 40, 40
   offset: 0, 0

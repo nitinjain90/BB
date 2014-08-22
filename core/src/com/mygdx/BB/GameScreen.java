@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,6 +21,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen implements Screen {
 	final BB game;
+	private BitmapFont font;
 	private static final int no_of_frames = 2;
 	Texture ballonFrames;
 	TextureRegion[] burstFrames = new TextureRegion[no_of_frames];
@@ -35,14 +38,15 @@ public class GameScreen implements Screen {
 	
 	public GameScreen(final BB gam) {
 		this.game = gam;
+		
 		ballonFrames = new Texture(Gdx.files.internal("ballon_burst.png"));
-    
+        font = new BitmapFont(Gdx.files.internal("font.fnt") , false);  
         ballonBursting = Gdx.audio.newSound(Gdx.files.internal("BallonBursting.wav"));
 		TextureRegion[][] tmp = TextureRegion.split(ballonFrames, ballonFrames.getWidth()/2, ballonFrames.getHeight());
         burstFrames[0] = tmp[0][0];
         burstFrames[1] = tmp[0][1];
 		
-        burstAnimation = new Animation(3.0f , burstFrames);
+        burstAnimation = new Animation(3.0f , burstFrames );
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 
@@ -69,9 +73,8 @@ public class GameScreen implements Screen {
 			return true;
 		else
 			return false;
-
 	}
-
+     
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
@@ -81,7 +84,8 @@ public class GameScreen implements Screen {
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-		game.font.draw(game.batch, "Ballon Bursted :" + ballonBursted, 0, 460);
+		font.draw(game.batch, "Ballon Bursted :" + ballonBursted, 0, 460);
+		font.draw(game.batch, "Ballon Missed:"+ballonMissed, 400, 460);
 		for (Rectangle ballon : ballons) {
 			game.batch.draw(burstFrames[0], ballon.x, ballon.y);
 		}
@@ -106,11 +110,11 @@ public class GameScreen implements Screen {
 				iter.remove();
 			}
 		}
-		game.batch.end();
+		
 		if (ballonMissed > 5) {
 			game.setScreen(new ScoreScreen(game, ballonBursted));
 		}
-       
+		game.batch.end();
 	}
 
 	@Override
@@ -120,7 +124,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-
+      
 	}
 
 	@Override
@@ -143,7 +147,7 @@ public class GameScreen implements Screen {
 	public void dispose() {
 		ballonFrames.dispose();
 		ballonBursting.dispose();
-		
+		game.batch.dispose();
 		
 
 	}
